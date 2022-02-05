@@ -1,8 +1,14 @@
 import json
 import random
 from collections import Counter
+
 from termcolor import colored
+import colorama
+
 import string
+
+# windows support
+colorama.init()
 
 NUM_GUESSES = 6
 
