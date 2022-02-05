@@ -38,6 +38,10 @@ retry_idx = input('Enter word # to try previous word, or press ENTER to start wi
 
 if retry_idx.isnumeric():
     idx = int(retry_idx)
+    if idx > len(answers):
+        print('Invalid number! Generating random word.')
+        idx = random.randrange(0, len(answers))
+    
     word = answers[idx]
     word_count = Counter(word)
     print(f'Word {idx} loaded')
@@ -50,11 +54,8 @@ else:
 
 for guess_num in range(1, NUM_GUESSES + 1):
     cur_guess = ''
-    while len(cur_guess) != 5:
+    while len(cur_guess) != 5 or (cur_guess not in answers_set and cur_guess not in guesses_set):
         cur_guess = input(f'Enter guess {guess_num}:\n').lower()
-        if len(cur_guess) != 5 or (cur_guess not in answers_set and cur_guess not in guesses_set):
-            print('invalid word.')
-            cur_guess = ''
 
     res_str = ''
 
@@ -80,6 +81,6 @@ for guess_num in range(1, NUM_GUESSES + 1):
     if cur_guess == word:
         print('Congrats!')
         break
-
+# all guesses exhausted
 else:
     print('Sorry, you did not win this time!')
